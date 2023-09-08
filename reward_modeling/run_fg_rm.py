@@ -421,7 +421,27 @@ def main():
             [label_list[p] for (p, l) in zip(prediction, label) if l != -100]
             for prediction, label in zip(predictions, labels)
         ]
+
+        true_labels = [
+            [label_list[l] for (p, l) in zip(prediction, label) if l != -100]
+            for prediction, label in zip(predictions, labels)
+        ]
         
+        rewards = []
+        for true_pred, true_lab in zip(true_predictions, true_labels):
+            reward = 0
+            for pred, lab in zip(true_pred, true_lab):
+                if pred == "O":
+                    reward += 1
+                elif pred == "ERR":
+                    reward -= 1
+            rewards.append(reward)
+
+        mean_reward = np.mean(rewards)
+        sem_reward = np.std(rewards) / np.sqrt(len(rewards))
+
+        breakpoint() 
+
         # Save predictions
         output_predictions_file = os.path.join(training_args.output_dir, data_args.prediction_output_filename)
         if trainer.is_world_process_zero():
