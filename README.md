@@ -107,6 +107,14 @@ Please find our trained SFT, reward and RLHF models from [this link](https://dri
 
 We provide html files for feedback collection interfaces of qa-feedback. Please find them under `tasks/qa_feedback/interface_html`. Open `templates/annotation.html` and `templates/comparison.html` in a browser to view the interface for fine-grained and preference feedback collection, respectively.
 
+## Running inference 
+
+1. Prepare data: `. /tasks/qa_feedback/reward_modeling/create_rm_train_files.sh`
+2. Test setup with `. /tasks/qa_feedback/reward_modeling/inference_comp_rm.sh` & `. /tasks/qa_feedback/reward_modeling/inference_rel_rm.sh` 
+3. Prepare data to score using the reward models
+4. Adjust arguments in `. /tasks/qa_feedback/reward_modeling/inference_comp_rm.sh` to use your data and run it. 
+
+
 ## Citation
 ```
 @article{wu2023fine,
